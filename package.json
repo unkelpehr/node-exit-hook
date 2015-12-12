@@ -1,0 +1,26 @@
+{
+  "name": "exit-hook2",
+  "version": "1.0.0",
+  "description": "Node.js cancellable exit-hooks",
+  "author": "Pehr Boman <github.com/unkelpehr>",
+  "scripts": {
+    "test": "mocha test/tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unkelpehr/node-exit-hook"
+  },
+  "bugs": {
+    "url": "https://github.com/unkelpehr/node-exit-hook/issues"
+  },
+  "keywords": [
+    "exit",
+    "shutdown",
+    "onexit"
+  ],
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*"
+  },
+  "license": "MIT"
+}
