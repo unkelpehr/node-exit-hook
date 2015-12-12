@@ -27,7 +27,9 @@ exitHook(function (canCancel, signal, code) {
   - **signal** Originating signal (if any).
   - **code** Exit code.
 
-A full list of exit codes can be found <a href="https://nodejs.org/api/process.html#process_exit_codes" target="_blank">here</a> (new window)
+A full list of exit codes can be found <a href="https://nodejs.org/api/process.html#process_exit_codes" target="_blank">here</a> (new window).
+
+Returning `false` terminates the shutdown sequence and stops the callback loop. If the shutdown cannot be cancelled _('canCancel' = `false`)_ the callback loop will not stop running.
 
 ### exitHook.list
 Returns an array with all the events currently listened to.
@@ -49,7 +51,7 @@ Unbinds a previously bound shutdown signal.
 exitHook.unbind('CUSTOM1').list(); // ['SIGINT', 'SIGTERM', 'SIGHUP', ...]
 exitHook.unbind('SIGTERM').list(); // ['SIGINT', 'SIGHUP', ...]
 ```
-- **signal** Shutdown signal to stop listening for. **Pass `everything` to clear the module of _all_ shutdown signals.**
+- **signal** Shutdown signal to stop listening for. **Pass `"everything"` to clear the module of _all_ shutdown signals.**
 
 ### Custom events
 ```javascript
