@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/unkelpehr/node-exit-hook.svg?branch=master)](https://travis-ci.org/unkelpehr/node-exit-hook)
+
 # node-exit-hook
 
 > Node.js cancellable exit-hooks
