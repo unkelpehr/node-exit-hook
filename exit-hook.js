@@ -8,14 +8,15 @@ var funcs = [],
 // Handler for all exit events
 function handleExit (canCancel, signal, code) {
 	var i = 0,
-		func,
-		allow = true;
+		func;
 
 	while ((func = funcs[i++])) {
-		allow = func(canCancel, signal, code) === false ? false : allow;
+		if (func(canCancel, signal, code) === false && canCancel) {
+			return;
+		}
 	}
 
-	if (canCancel && allow) {
+	if (canCancel) {
 		process.exit(code);
 	}
 };
