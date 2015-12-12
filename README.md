@@ -16,9 +16,9 @@ npm install exit-hook2 --save
 var exitHook = require('exit-hook')
 
 exitHook(function (canCancel, signal, code) {
-    var allow = canCancel && false;
+    var allowShutdown = canCancel && false;
     
-    return allow;
+    return allowShutdown;
 });
 ```
 
