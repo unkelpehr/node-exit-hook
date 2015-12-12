@@ -16,7 +16,9 @@ npm install exit-hook2 --save
 var exitHook = require('exit-hook')
 
 exitHook(function (canCancel, signal, code) {
-
+    var allow = canCancel && false;
+    
+    return allow;
 });
 ```
 
@@ -27,6 +29,44 @@ exitHook(function (canCancel, signal, code) {
 
 A full list of exit codes can be found <a href="https://nodejs.org/api/process.html#process_exit_codes" target="_blank">here</a> (new window)
 
+### exitHook.list
+Returns an array with all the events currently listened to.
+```javascript
+var list = exitHook.list(); // ['SIGINT', 'SIGTERM', 'SIGHUP', ...]
+```
+
+### exitHook.bind
+Binds a new event to treat as a shutdown signal.
+```javascript
+exitHook.bind('CUSTOM1', true).list(); // ['SIGINT', 'SIGTERM', 'SIGHUP', 'CUSTOM1', ...]
+```
+- **signal** Shutdown signal to listen for.
+- **canCancel** Boolean passed to the handlers signaling whether the shutdown can be cancelled.
+
+### exitHook.unbind
+Unbinds a previously bound shutdown signal.
+```javascript
+exitHook.unbind('CUSTOM1').list(); // ['SIGINT', 'SIGTERM', 'SIGHUP', ...]
+exitHook.unbind('SIGTERM').list(); // ['SIGINT', 'SIGHUP', ...]
+```
+- **signal** Shutdown signal to stop listening for.
+
+### Custom events
+```javascript
+// Let 'CUSTOM1' act as a cancellable shutdown signal
+exitHook.bind('CUSTOM1', true);
+
+exitHook(function (canCancel, signal, code) {
+    canCancel; // true
+    signal; // CUSTOM1
+    code; // 128
+    
+    // Don't let the process terminate
+    return false;
+});
+
+process.emit('CUSTOM1', 128);
+```
 
 ## License
 
