@@ -26,14 +26,14 @@ function requireExitHook () {
 describe('API', function () {
 	var exitHook = requireExitHook();
 
-	it('exit-hook is a function that take one argument and returns exit-hook', function () {
+	it('exit-hook is a function that take two arguments and returns exit-hook', function () {
 		expect(exitHook).to.be.a('function');
-		expect(exitHook.length).to.equal(1);
+		expect(exitHook.length).to.equal(2);
 		expect(exitHook()).to.equal(exitHook);
 	});
 
-	it("exit-hook has only three properties: 'bind', 'unbind', and 'list", function () {
-		expect(Object.keys(exitHook).sort()).to.be.deep.equal(['bind', 'list', 'unbind']);
+	it("exit-hook has only three properties: 'bind', 'unbind', 'removeListener' and 'list", function () {
+		expect(Object.keys(exitHook).sort()).to.be.deep.equal(['bind', 'list', 'removeListener', 'unbind']);
 	});
 
 	it('exit-hook.bind is a function that take two arguments and returns exit-hook', function () {
@@ -137,6 +137,33 @@ describe('Extended functionality', function () {
 		expect(list1.length).to.deep.equal(list2.length);
 	});
 
+	it("'removeListener' works as expected", function (done) {
+		var calls = 2,
+			list2;
+
+		function next () {
+			if (!--calls) {
+				done();
+			}
+
+			return false;
+		}
+
+		function a () { return next(); }
+		function b () { return next(); }
+		function c () { return next(); }
+
+		exitHook(a);
+		exitHook(b);
+		exitHook(c);
+
+		exitHook.removeListener(b);
+
+		exitHook.bind('CUSTOM1');
+
+		process.emit('CUSTOM1', true);
+	});
+
 	it('Returning false doesn\'t let the process terminate', function (done) {
 		exitHook(function () {
 			setTimeout(done);
@@ -168,10 +195,22 @@ describe('Extended functionality', function () {
 
 		process.emit('CUSTOM2');
 	});
-	
-	it('Context for callbacks is \'exitHook\'', function (done) {
-		exitHook(function () {
-			expect(this.name).to.equal('exitHook');
+
+	it('Default context is the callback function', function (done) {
+		exitHook(function foo () {
+			expect(this).to.equal(foo);
+			exitHook.unbind('everything');
+			done();
+		}).bind('CUSTOM2');
+		
+		process.emit('CUSTOM2');
+	});
+
+	it('Custom context as first param', function (done) {
+		var context = {foo:'bar'};
+
+		exitHook(context, function () {
+			expect(this).to.equal(context);
 			exitHook.unbind('everything');
 			done();
 		}).bind('CUSTOM2');

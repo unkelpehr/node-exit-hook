@@ -1,17 +1,17 @@
 // Licenced under MIT - exit-hook - ©2015 Pehr Boman <github.com/unkelpehr>
 'use strict';
 
-var funcs = [],
+var subs = [],
 	win32 = process.platform === 'win32',
 	bound = {};
 
 // Handler for all exit events
 function handleExit (canCancel, signal, code) {
 	var i = 0,
-		func;
+		sub;
 
-	while ((func = funcs[i++])) {
-		if (func.call(exitHook, canCancel, signal, code) === false && canCancel) {
+	while ((sub = subs[i++])) {
+		if (sub[0].call(sub[1], canCancel, signal, code) === false && canCancel) {
 			return;
 		}
 	}
@@ -22,9 +22,14 @@ function handleExit (canCancel, signal, code) {
 };
 
 //  Adds a new function to execute when the application is exiting.
-function exitHook (func) {
+function exitHook (context, func) {
+	if (!func) {
+		func = context;
+		context = func;
+	}
+
 	if (typeof func === 'function') {
-		funcs.push(func)
+		subs.push([func, context])
 	}
 
 	return exitHook;
@@ -53,6 +58,19 @@ exitHook.unbind = function (signal) {
 			process.removeListener(signal, bound[signal]);
 			delete bound[signal];
 		});
+	}
+
+	return exitHook;
+};
+
+// Removes a previously added shutdown callback.
+exitHook.removeListener = function (func) {
+	if (typeof func === 'function') {
+		for (var i = 0; i < subs.length; ++i) {
+			if (subs[i][0] === func) {
+				subs.splice(i--, 1);
+			}
+		}
 	}
 
 	return exitHook;
