@@ -73,7 +73,7 @@ Unbinds a previously bound shutdown signal.
 exitHook.unbind('CUSTOM1').list(); // ['SIGINT', 'SIGTERM', 'SIGHUP', ...]
 exitHook.unbind('SIGTERM').list(); // ['SIGINT', 'SIGHUP', ...]
 ```
-- **signal** Shutdown signal to stop listening for. **Pass `"everything"` to clear the module of _all_ shutdown signals.**
+- **signal** Shutdown signal to stop listening for. Pass `"everything"` to clear the module of _all_ shutdown signals.
 
 ### exitHook.removeListener
 Removes a previously added shutdown listener.
