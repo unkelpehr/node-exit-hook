@@ -36,7 +36,7 @@ A full list of exit codes can be found <a href="https://nodejs.org/api/process.h
 
 Returning `false` terminates the shutdown sequence and stops the callback loop. If the shutdown cannot be cancelled _('canCancel' = `false`)_ the callback loop will not stop running.
 
-**If 'canCancel' is set to `false` only synchronous code can execute.** All asynchronous operations will be ignored.
+**If 'canCancel' is set to `false` then only synchronous code can execute. Any asynchronous operations WILL NOT RUN.**
 
 **Graceful shutdown with asynchronous operations**
 ```javascript
