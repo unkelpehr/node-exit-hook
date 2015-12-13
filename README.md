@@ -56,6 +56,16 @@ exitHook.unbind('SIGTERM').list(); // ['SIGINT', 'SIGHUP', ...]
 ```
 - **signal** Shutdown signal to stop listening for. **Pass `"everything"` to clear the module of _all_ shutdown signals.**
 
+### exitHook.removeListener
+Removes a previously added shutdown listener.
+```javascript
+// Make sure the cleanup isn't executed multiple times
+exitHook(function () {
+    performCleanup();
+    exitHook.removeListener(this);
+});
+```
+
 ### Custom events
 ```javascript
 // Let 'CUSTOM1' act as a cancellable shutdown signal
