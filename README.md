@@ -25,6 +25,7 @@ exitHook(function (canCancel, signal, code) {
 });
 ```
 
+- **context** An optional context for the 'callback' function. If `undefined`, the callback will have it's own context.
 - **callback** A function to execute when the application is exiting.
   - **canCancel** When `true` the exit can be cancelled by returning `false`.
   - **signal** Originating signal (if any).
@@ -59,9 +60,10 @@ exitHook.unbind('SIGTERM').list(); // ['SIGINT', 'SIGHUP', ...]
 ### exitHook.removeListener
 Removes a previously added shutdown listener.
 ```javascript
-// Make sure the cleanup isn't executed multiple times
 exitHook(function () {
     performCleanup();
+    
+    // Make sure the cleanup script isn't executed multiple times
     exitHook.removeListener(this);
 });
 ```
