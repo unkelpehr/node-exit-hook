@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/unkelpehr/node-exit-hook.svg?branch=master)](https://travis-ci.org/unkelpehr/node-exit-hook)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
 # node-exit-hook
 
