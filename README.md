@@ -38,7 +38,7 @@ Returning `false` terminates the shutdown sequence and stops the callback loop. 
 
 **If 'canCancel' is set to `false` only synchronous code can execute.** All asynchronous operations will be ignored.
 
-** Asynchronous and graceful shutdown **
+**Graceful shutdown with asynchronous operations**
 ```javascript
 exitHook(function (canCancel, signal, code) {
     if (canCancel) {
