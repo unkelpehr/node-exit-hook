@@ -36,6 +36,23 @@ A full list of exit codes can be found <a href="https://nodejs.org/api/process.h
 
 Returning `false` terminates the shutdown sequence and stops the callback loop. If the shutdown cannot be cancelled _('canCancel' = `false`)_ the callback loop will not stop running.
 
+**If 'canCancel' is set to `false` only synchronous code can execute.** All asynchronous operations will be ignored.
+
+#### Asynchronous and graceful shutdown
+```javascript
+exitHook(function (canCancel, signal, code) {
+    if (canCancel) {
+        exitHook.removeListener(this);
+        
+        server.close(function () {
+            process.exit(code);
+        });
+        
+        return false;
+    }
+});
+```
+
 ### exitHook.list
 Returns an array with all the events currently listened to.
 ```javascript
