@@ -168,6 +168,16 @@ describe('Extended functionality', function () {
 
 		process.emit('CUSTOM2');
 	});
+	
+	it('Context for callbacks is \'exitHook\'', function (done) {
+		exitHook(function () {
+			expect(this.name).to.equal('exitHook');
+			exitHook.unbind('everything');
+			done();
+		}).bind('CUSTOM2');
+		
+		process.emit('CUSTOM2');
+	});
 
 	it('Last test. A non-cancellable signal (I guess mocha doesn\'t let the event-loop run out)', function () {
 		exitHook(function (canCancel, signal, code) {			

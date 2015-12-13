@@ -1,8 +1,4 @@
 language: node_js
-os:
-  - linux
-  - osx
-
 node_js:
   - "5.2"
   - "4.2.3"

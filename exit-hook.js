@@ -11,7 +11,7 @@ function handleExit (canCancel, signal, code) {
 		func;
 
 	while ((func = funcs[i++])) {
-		if (func(canCancel, signal, code) === false && canCancel) {
+		if (func.call(exitHook, canCancel, signal, code) === false && canCancel) {
 			return;
 		}
 	}
