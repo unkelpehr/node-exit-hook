@@ -1,6 +1,6 @@
 {
   "name": "exit-hook2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node.js cancellable exit-hooks",
   "author": "Pehr Boman <github.com/unkelpehr>",
   "scripts": {
@@ -16,7 +16,8 @@
   "keywords": [
     "exit",
     "shutdown",
-    "onexit"
+    "onexit",
+    "graceful"
   ],
   "devDependencies": {
     "mocha": "*",
