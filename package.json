@@ -1,6 +1,6 @@
 {
   "name": "exit-hook2",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Node.js cancellable exit-hooks",
   "author": "Pehr Boman <github.com/unkelpehr>",
   "scripts": {
