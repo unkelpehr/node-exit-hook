@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/unkelpehr/node-exit-hook.svg?branch=master)](https://travis-ci.org/unkelpehr/node-exit-hook)
-[![npm version](https://badge.fury.io/js/exit-hook2.svg)](https://badge.fury.io/js/exit-hook2)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+[![node version](https://img.shields.io/node/v/exit-hook2.svg)](https://www.npmjs.com/package/exit-hook2)
+[![npm version](https://badge.fury.io/js/exit-hook2.svg)](https://www.npmjs.com/package/exit-hook2)
+[![License](https://img.shields.io/node/v/exit-hook2.svg)](LICENSE)
 
 # node-exit-hook
 
